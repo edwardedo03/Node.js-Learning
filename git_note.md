@@ -56,3 +56,51 @@ Untuk mengecek repository mana yang terhubung dengan folder lokal:
 • `git remote show origin` (Melihat informasi detail branch remote)
 
 • `git remote set-url origin <URL_baru>` (Mengubah URL repository)
+
+------------------------
+
+Alur Git: Pull di Branch Baru & Jaga Branch Main
+Berikut adalah langkah-langkah untuk membuat branch baru dari branch lokal saat ini, menarik (pull) pembaruan di branch baru tersebut, dan menjaga branch `main` tetap bersih hanya untuk kebutuhan merge.
+
+1. Salin Branch Lokal Saat Ini ke Branch Baru
+Jika kamu sedang berada di branch lokal yang ingin kamu duplikat (misal dari `main` atau branch kerja saat ini) dan ingin membuat branch baru dari sana:
+
+```
+
+# Membuat dan langsung pindah ke branch baru
+
+git checkout -b nama_branch_baru
+
+```
+
+Sekarang kamu berada di `nama_branch_baru` yang berisi salinan persis dari kode lokal terakhirmu.
+
+2. Perbarui Branch Baru dengan Kode Terbaru dari Repo
+Untuk memperbarui branch baru yang baru saja dibuat dengan perubahan terbaru dari branch remote (misalnya mengambil pembaruan dari `main` di repo):
+
+```
+
+git pull origin main
+
+```
+
+Jika ada bentrokan kode antara perubahan lokalmu dan repo, kamu bisa menyelesaikannya (resolve conflict) di branch baru ini tanpa mengganggu branch `main` lokal.
+
+3. Menjaga Branch Main Lokal Hanya untuk Merge
+Agar branch `main` lokal kamu tetap bersih dan hanya digunakan untuk kebutuhan menggabungkan (merge) atau memantau repo pusat, gunakan alur ini:
+
+```
+
+# Pindah kembali ke branch main lokal
+
+git checkout main
+
+# Perbarui main lokal agar sama persis dengan remote repo
+
+git pull origin main
+
+# Gabungkan branch baru yang sudah selesai dikerjakan ke main
+
+git merge nama_branch_baru
+
+```
